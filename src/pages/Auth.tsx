@@ -230,6 +230,13 @@ export default function Auth() {
                 showToggle
                 />
               )}
+              {!isSignUp && (
+                <div className="text-right -mt-2">
+                  <Link to="/forgot-password" className="text-sm text-primary hover:underline">
+                    Forgot password?
+                  </Link>
+                </div>
+              )}
               <button
                 type="submit"
                 disabled={isLoading}
@@ -310,6 +317,11 @@ export default function Auth() {
                 error={errors.password}
                 showToggle
               />
+              <div className="text-right -mt-2">
+                <Link to="/forgot-password" className="text-sm text-primary hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
               <button
                 type="submit"
                 disabled={isLoading}
