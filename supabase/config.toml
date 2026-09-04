@@ -1,4 +1,4 @@
-project_id = "vpseiyfauvhlsyutclye"
+project_id = "kmzxfhvoavqwquxgfmrz"
 
 [functions.upload-students]
 verify_jwt = false
