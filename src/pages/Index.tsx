@@ -78,79 +78,76 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 md:py-28 relative overflow-hidden bg-[#f6f9fc]">
-        <div className="container max-w-[1200px] mx-auto px-4 sm:px-6 relative">
+      <section className="py-16 md:py-20 relative overflow-hidden bg-background text-foreground">
+        {/* Base Background Gradient Layer */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+        {/* Ambient Top-Right Glowing Blur Sphere */}
+        <div className="absolute top-1/4 -right-48 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse pointer-events-none" />
+        {/* Ambient Bottom-Left Glowing Blur Sphere */}
+        <div 
+          className="absolute bottom-1/4 -left-48 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse pointer-events-none" 
+          style={{ animationDelay: '1s' }} 
+        />
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Section Header */}
-          <div className="mx-auto max-w-2xl text-center mb-16 md:mb-24">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-slate-800 font-display">
+          <div className="mx-auto max-w-2xl text-center mb-12 md:mb-16">
+            <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               Everything You Need
             </h2>
-            <p className="text-slate-500 text-base md:text-lg">
+            <p className="text-muted-foreground text-base md:text-lg">
               A complete solution for identity verification with powerful admin tools.
             </p>
           </div>
-
-          {/* Feature Cards List (Z-Pattern Layout) */}
-          <div className="space-y-16 md:space-y-24">
+          {/* Feature Rows (Z-Pattern Alternating Grid) */}
+          <div className="space-y-12 md:space-y-16">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               const isEven = index % 2 === 0;
               return (
                 <div
                   key={feature.title}
-                  className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-20"
+                  className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 ${
+                    isEven ? '' : 'lg:flex-row-reverse'
+                  } animate-slide-up`}
+                  style={{ animationDelay: `${0.2 * index}s` }}
                 >
-                  {/* Orb Column */}
-                  <div
-                    className={`flex justify-center ${
-                      isEven ? 'lg:order-1' : 'lg:order-2'
-                    }`}
-                  >
-                    <div className="relative flex items-center justify-center">
-                      {/* Background Soft Radial Glow */}
-                      <div className="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-cyan-200/40 blur-3xl pointer-events-none" />
-
-                      {/* Outer Border Ring */}
-                      <div className="relative w-48 h-48 md:w-60 md:h-60 rounded-full border border-blue-200/80 bg-blue-50/40 flex items-center justify-center">
-                        {/* Orbiting Green Dot Top-Right */}
-                        <div className="absolute top-2 right-4 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-white shadow-sm" />
-                        
-                        {/* Orbiting Blue Dot Bottom-Left */}
-                        <div className="absolute bottom-3 left-3 w-3 h-3 rounded-full bg-blue-600 border-2 border-white shadow-sm" />
-
-                        {/* Main Gradient Icon Sphere */}
-                        <div className="w-36 h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-[#3b52f6] via-[#2563eb] to-[#6336f7] flex items-center justify-center shadow-2xl shadow-blue-500/30 transform hover:scale-105 transition-transform duration-300">
-                          <Icon className="w-16 h-16 md:w-20 md:h-20 text-white" strokeWidth={1.5} />
-                        </div>
+                  {/* Graphic / Icon Orb Column */}
+                  <div className="flex-1 flex justify-center relative">
+                    <div className="relative">
+                      {/* 1. Outer Glow Ring */}
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-2xl scale-150 animate-pulse" />
+                      {/* 2. Middle Rotating Border Ring */}
+                      <div className="absolute inset-0 rounded-full border-2 border-primary/30 scale-125 animate-spin-slow" />
+                      {/* 3. Main Gradient Icon Sphere */}
+                      <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full gradient-primary flex items-center justify-center shadow-2xl transform hover:scale-110 transition-transform duration-500">
+                        <Icon className="w-16 h-16 md:w-20 md:h-20 text-primary-foreground" strokeWidth={1.5} />
                       </div>
+                      {/* 4. Orbiting Floating Dots */}
+                      <div className="absolute -top-3 -right-3 w-3 h-3 rounded-full bg-accent animate-bounce" />
+                      <div 
+                        className="absolute -bottom-3 -left-3 w-2.5 h-2.5 rounded-full bg-primary animate-bounce" 
+                        style={{ animationDelay: '0.5s' }} 
+                      />
                     </div>
                   </div>
-
-                  {/* Text Column */}
-                  <div
-                    className={`text-left ${
-                      isEven ? 'lg:order-2' : 'lg:order-1'
-                    }`}
-                  >
-                    <div className="max-w-md mx-auto lg:mx-0">
-                      {/* Step Number Badge */}
-                      <div className="text-4xl md:text-5xl font-bold text-[#bde0fe] mb-2 tracking-tight">
-                        {feature.number}
-                      </div>
-
-                      {/* Feature Title */}
-                      <h3 className="text-2xl md:text-3xl font-bold text-slate-800 mb-3 font-display">
-                        {feature.title}
-                      </h3>
-
-                      {/* Feature Description */}
-                      <p className="text-slate-500 text-base md:text-lg leading-relaxed mb-4">
-                        {feature.description}
-                      </p>
-
-                      {/* Decorative Line */}
-                      <div className="h-[3px] w-14 bg-gradient-to-r from-blue-600 to-teal-400 rounded-full" />
+                  {/* Content / Text Column */}
+                  <div className="flex-1 text-center lg:text-left">
+                    {/* Step Watermark Badge */}
+                    <div className="inline-block mb-2">
+                      <span className="text-4xl md:text-5xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent opacity-20">
+                        0{index + 1}
+                      </span>
                     </div>
+                    {/* Feature Title */}
+                    <h3 className="font-display text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+                      {feature.title}
+                    </h3>
+                    {/* Feature Description */}
+                    <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-md mx-auto lg:mx-0">
+                      {feature.description}
+                    </p>
+                    {/* Decorative Gradient Line */}
+                    <div className="mt-4 h-1 w-16 bg-gradient-to-r from-primary to-accent rounded-full mx-auto lg:mx-0" />
                   </div>
                 </div>
               );
